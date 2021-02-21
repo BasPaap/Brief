@@ -9,6 +9,12 @@ namespace Bas.Brief
 {
     sealed class BriefConfiguration
     {
+        public string Subject { get; private set; }
+        public string IntroductionHtml { get; private set; }
+        public string SignOffHtml { get; private set; }
+        public string SenderName { get; private set; }
+        public string SenderEmailAddress { get; private set; }
+
         public void Load(string fileName)
         {
             var configurationDocument = XDocument.Load(fileName);
@@ -38,8 +44,11 @@ namespace Bas.Brief
                                      SignOff = (string)root.Element("SignOff")
                                  }).Single();
 
-            throw new NotImplementedException();
-            
+            Subject = configuration.Subject;
+            IntroductionHtml = configuration.Introduction;
+            SignOffHtml = configuration.SignOff;
+            SenderName = configuration.Sender.Name;
+            SenderEmailAddress = configuration.Sender.EmailAddress;            
         }
     }
 }

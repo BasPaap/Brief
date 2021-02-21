@@ -13,6 +13,8 @@ namespace Bas.Brief
             var configuration = new BriefConfiguration();
             configuration.Load(briefFileName);
 
+
+
             throw new NotImplementedException();
         }
     }
