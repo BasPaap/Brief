@@ -20,7 +20,10 @@ namespace Bas.Brief
             message.To.Add(MailboxAddress.Parse(recipients));
             message.Subject = configuration.Subject;
 
+            
+
             var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = $"{configuration.IntroductionHtml}, {configuration.SignOffHtml}";
             message.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new SmtpClient())

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Bas.Brief.ItemGenerators;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ namespace Bas.Brief
         public string SignOffHtml { get; private set; }
         public string SenderName { get; private set; }
         public string SenderEmailAddress { get; private set; }
+        public Collection<ItemGenerator> ItemGenerators { get; private set; } = new Collection<ItemGenerator>();
 
         public void Load(string fileName)
         {
@@ -48,7 +51,15 @@ namespace Bas.Brief
             IntroductionHtml = configuration.Introduction;
             SignOffHtml = configuration.SignOff;
             SenderName = configuration.Sender.Name;
-            SenderEmailAddress = configuration.Sender.EmailAddress;            
+            SenderEmailAddress = configuration.Sender.EmailAddress;
+
+            foreach (var item in configuration.Items)
+            {
+                var isFirst = item == configuration.Items.First();
+                var isLast = item == configuration.Items.Last();
+                
+                
+            }
         }
     }
 }
