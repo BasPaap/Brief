@@ -10,6 +10,9 @@ namespace Bas.Brief
     {
         public static void Send(string briefFileName, string recipients)
         {
+            var configuration = new BriefConfiguration();
+            configuration.Load(briefFileName);
+
             throw new NotImplementedException();
         }
     }

@@ -9,4 +9,10 @@
     <ProjectReference Include="..\Bas.Brief\Bas.Brief.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Example.brief">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

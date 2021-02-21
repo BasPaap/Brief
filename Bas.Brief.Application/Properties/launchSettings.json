@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Bas.Brief.Application": {
+      "commandName": "Project",
+      "commandLineArgs": "Example.brief recipient@mailservice.com"
+    }
+  }
+}
