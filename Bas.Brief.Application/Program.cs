@@ -6,7 +6,8 @@ namespace Bas.Brief.Application
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var arguments = new Arguments(args);
+            BriefSender.Send(arguments.BriefFileName, arguments.Recipients);
         }
     }
 }
