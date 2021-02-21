@@ -29,17 +29,17 @@ namespace Bas.Brief
                                      },
                                      Subject = (string)root.Element("Subject"),
                                      Introduction = (string)root.Element("Introduction"),
-                                     Items = from item in root.Element("Items").Elements()
+                                     DataComponents = from dataComponent in root.Element("DataComponents").Elements()
                                              select new
                                              {
-                                                 Name = item.Name,
-                                                 Parameters = from attribute in item.Attributes()
+                                                 Name = dataComponent.Name,
+                                                 Parameters = from attribute in dataComponent.Attributes()
                                                               select new
                                                               {
                                                                   Name = attribute.Name,
                                                                   Value = attribute.Value
                                                               },
-                                                 Content = item.Value
+                                                 Content = dataComponent.Value
                                              },
                                      SignOff = (string)root.Element("SignOff")
                                  }).Single();

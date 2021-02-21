@@ -2,11 +2,11 @@
 <Brief senderName="Brief Service" senderEmail="noreply@briefservice.com">
   <Subject>Your brief for DATE</Subject>
   <Introduction><![CDATA[<p>Good morning!</p>]]></Introduction>
-  <Items>
+  <DataComponents>
     <GoogleCalendar />
     <Bl3p />
     <Nos numItems="3"><![CDATA[Some of today's headlines:]]></Nos>
     <Reddit numItems="1" sub="upliftingnews" period="day"><![CDATA[But there's also good news: ]]></Reddit>
-  </Items>
+  </DataComponents>
   <SignOff><![CDATA[<p>Have a nice day!</p>]]></SignOff>
 </Brief>
