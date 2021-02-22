@@ -13,7 +13,7 @@ namespace Bas.Brief.ItemGenerators
         {
         }
 
-        public override string ToHtml()
+        public override async Task<string> ToHtmlAsync()
         {
             var htmlBuilder = new StringBuilder();
             

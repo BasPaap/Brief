@@ -13,8 +13,10 @@ namespace Bas.Brief
     {
         internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
         {
-            var assemblies = new List<Assembly>();
-            assemblies.Add(typeof(ItemGenerator).Assembly); // The assembly containing the built in item generators.
+            var assemblies = new List<Assembly>
+            {
+                typeof(ItemGenerator).Assembly // The assembly containing the built in item generators.
+            };
             // TODO: load any other third party assemblies 
 
             Type generatorType = null;

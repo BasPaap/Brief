@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,11 @@ namespace Bas.Brief.ItemGenerators
         {
         }
 
-        public override string ToHtml()
+        public override async Task<string> ToHtmlAsync()
         {
+            using var httpClient = new HttpClient();
+            var dinges = await httpClient.GetStringAsync(Parameters["url"]);
+
             throw new NotImplementedException();
         }
     }

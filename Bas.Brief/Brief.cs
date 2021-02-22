@@ -30,7 +30,7 @@ namespace Bas.Brief
             var items = from item in configurationDocument.Root.Element("Items").Elements()
                         select new
                         {
-                            Name = item.Name,
+                            item.Name,
                             Parameters = from attribute in item.Attributes()
                                          select new KeyValuePair<string, string>(attribute.Name.ToString(), attribute.Value),                                         
                             Content = item.Value
@@ -48,14 +48,14 @@ namespace Bas.Brief
             }
         }
 
-        public string GetBodyHtml()
+        public async Task<string> GetBodyHtmlAsync()
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(IntroductionHtml);
 
             foreach (var itemGenerator in ItemGenerators)
             {
-                stringBuilder.Append(itemGenerator.ToHtml());
+                stringBuilder.Append(await itemGenerator.ToHtmlAsync());
             }
 
             stringBuilder.Append(SignOffHtml);

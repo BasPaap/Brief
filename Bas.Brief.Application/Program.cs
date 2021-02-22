@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Bas.Brief.Application
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var arguments = new Arguments(args);
-            BriefSender.Send(arguments.BriefFileName, arguments.Recipients);
+            await BriefSender.SendAsync(arguments.BriefFileName, arguments.Recipients);
         }
     }
 }

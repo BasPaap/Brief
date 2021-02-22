@@ -10,7 +10,7 @@ namespace Bas.Brief
 {
     public static class BriefSender
     {
-        public static void Send(string briefFileName, string recipients)
+        public static async Task SendAsync(string briefFileName, string recipients)
         {
             var brief = new Brief();
             brief.Load(briefFileName);
@@ -19,17 +19,17 @@ namespace Bas.Brief
             message.From.Add(new MailboxAddress(brief.SenderName, brief.SenderEmailAddress));
             message.To.Add(MailboxAddress.Parse(recipients));
             message.Subject = brief.Subject;
-            
-            var bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = brief.GetBodyHtml();
+
+            var bodyBuilder = new BodyBuilder
+            {
+                HtmlBody = await brief.GetBodyHtmlAsync()
+            };
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.foo.com", 587, false);
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            using var client = new SmtpClient();
+            await client.ConnectAsync("smtp.foo.com", 587, false);
+            await client.SendAsync(message);
+            await client.DisconnectAsync(true);            
         }
     }
 }
