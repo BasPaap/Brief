@@ -29,7 +29,7 @@ namespace Bas.Brief.ItemGenerators
 
             if (!string.IsNullOrWhiteSpace(Content))
             {
-                stringBuilder.Append($"{Content} ");
+                stringBuilder.Append(Content);
             }
                                    
             stringBuilder.Append($"<a href=\"{redditItem.Url}\"><strong>{redditItem.Title}</strong></a><br />");

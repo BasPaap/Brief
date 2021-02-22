@@ -8,5 +8,5 @@
     <Nos url="http://feeds.nos.nl/nosnieuwsalgemeen" numItems="3"><![CDATA[Dit is er allemaal gebeurd:]]></Nos>
     <Reddit numItems="1" sub="upliftingnews" period="day"><![CDATA[Maar er is ook goed nieuws: ]]></Reddit>
   </Items>
-  <SignOff><![CDATA[<p>Een fijne dag nog!!</p>]]></SignOff>
+  <SignOff><![CDATA[<p>Een fijne dag nog!</p>]]></SignOff>
 </Brief>
