@@ -40,10 +40,7 @@ namespace Bas.Brief
 
             foreach (var item in items)
             {
-                var isFirst = item == items.First();
-                var isLast = item == items.Last();
-
-                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content, isFirst, isLast);
+                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content);
                 ItemGenerators.Add(itemGenerator);
             }
         }

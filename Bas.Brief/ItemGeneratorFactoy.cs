@@ -11,7 +11,7 @@ namespace Bas.Brief
 {
     static class ItemGeneratorFactoy
     {
-        internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
+        internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content)
         {
             var assemblies = new List<Assembly>
             {
@@ -33,7 +33,7 @@ namespace Bas.Brief
 
             if (generatorType != null)
             {
-                var itemGenerator = Activator.CreateInstance(generatorType, parameters, content, isFirst, isLast) as ItemGenerator;
+                var itemGenerator = Activator.CreateInstance(generatorType, parameters, content) as ItemGenerator;
 
                 return itemGenerator;
             }

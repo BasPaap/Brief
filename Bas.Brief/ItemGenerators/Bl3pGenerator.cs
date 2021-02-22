@@ -8,8 +8,8 @@ namespace Bas.Brief.ItemGenerators
 {
     public sealed class Bl3pGenerator : ItemGenerator
     {
-        public Bl3pGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
-            : base(parameters, content, isFirst, isLast)
+        public Bl3pGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content)
+            : base(parameters, content)
         {
         }
 
@@ -17,15 +17,6 @@ namespace Bas.Brief.ItemGenerators
         {
             var htmlBuilder = new StringBuilder();
             
-            if (IsFirst && !IsLast)
-            {
-                htmlBuilder.Append("Firstly, ");
-            }
-            else if (!IsFirst && IsLast)
-            {
-                htmlBuilder.Append("Finally, ");
-            }
-
             htmlBuilder.Append("Bitcoin has gone up in value by a certain percentage.");
 
             return htmlBuilder.ToString();

@@ -8,35 +8,15 @@ namespace Bas.Brief.ItemGenerators
 {
     public abstract class ItemGenerator
     {
-        public bool IsFirst { get; private init; }
-        public bool IsLast { get; private init; }
         public string Content { get; private init; }
         public Dictionary<string, string> Parameters { get; private init; }
         
         public abstract Task<string> ToHtmlAsync();
-
-        protected string GetOpening(string defaultOpening, string openingIfFirst, string openingIfLast)
-        {
-            if (IsFirst && !IsLast)
-            {
-                return openingIfFirst;
-            }
-            else if (!IsFirst && IsLast)
-            {
-                return openingIfLast;
-            }
-            else
-            {
-                return defaultOpening;
-            }
-        }
-
-        public ItemGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
+                
+        public ItemGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content)
         {
             Parameters = new Dictionary<string, string>(parameters);
             Content = content;
-            IsFirst = isFirst;
-            IsLast = isLast;            
         }
     }
 }

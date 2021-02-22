@@ -11,8 +11,8 @@ namespace Bas.Brief.ItemGenerators
 {
     public sealed class NosGenerator : ItemGenerator
     {
-        public NosGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
-            : base(parameters, content, isFirst, isLast)
+        public NosGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content)
+            : base(parameters, content)
         {
         }
 
