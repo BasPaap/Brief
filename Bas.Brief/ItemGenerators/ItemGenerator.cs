@@ -15,6 +15,22 @@ namespace Bas.Brief.ItemGenerators
         
         public abstract Task<string> ToHtmlAsync();
 
+        protected string GetOpening(string defaultOpening, string openingIfFirst, string openingIfLast)
+        {
+            if (IsFirst && !IsLast)
+            {
+                return openingIfFirst;
+            }
+            else if (!IsFirst && IsLast)
+            {
+                return openingIfLast;
+            }
+            else
+            {
+                return defaultOpening;
+            }
+        }
+
         public ItemGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
         {
             Parameters = new Dictionary<string, string>(parameters);

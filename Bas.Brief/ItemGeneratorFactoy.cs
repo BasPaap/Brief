@@ -23,7 +23,7 @@ namespace Bas.Brief
 
             foreach (var assembly in assemblies)
             {
-                generatorType = assembly.GetType($"{name}Generator", false);
+                generatorType = assembly.GetTypes().FirstOrDefault(t => t.Name == $"{name}Generator");
 
                 if (generatorType != null)
                 {
@@ -31,9 +31,16 @@ namespace Bas.Brief
                 }
             }
 
-            var itemGenerator = Activator.CreateInstance(generatorType, parameters, content, isFirst, isLast) as ItemGenerator;
+            if (generatorType != null)
+            {
+                var itemGenerator = Activator.CreateInstance(generatorType, parameters, content, isFirst, isLast) as ItemGenerator;
 
-            return itemGenerator;
+                return itemGenerator;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

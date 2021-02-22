@@ -15,7 +15,7 @@ namespace Bas.Brief.ItemGenerators
 
         public override async Task<string> ToHtmlAsync()
         {
-            throw new NotImplementedException();
+            return string.Empty;
         }
     }
 }

@@ -55,7 +55,9 @@ namespace Bas.Brief
 
             foreach (var itemGenerator in ItemGenerators)
             {
+                stringBuilder.Append("<p>");
                 stringBuilder.Append(await itemGenerator.ToHtmlAsync());
+                stringBuilder.Append("</p>");
             }
 
             stringBuilder.Append(SignOffHtml);
