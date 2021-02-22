@@ -37,7 +37,6 @@ namespace Bas.Brief
                         };
 
             ItemGenerators.Clear();
-
             foreach (var item in items)
             {
                 var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content);
@@ -58,7 +57,6 @@ namespace Bas.Brief
             }
 
             stringBuilder.Append(SignOffHtml);
-
             return stringBuilder.ToString();
         }
     }
