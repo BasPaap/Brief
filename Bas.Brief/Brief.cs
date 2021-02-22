@@ -46,12 +46,25 @@ namespace Bas.Brief
             {
                 var isFirst = item == items.First();
                 var isLast = item == items.Last();
+
+                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name, item.Parameters, item.Content, isFirst, isLast);
+                ItemGenerators.Add(itemGenerator);
             }
         }
 
         public string GetBodyHtml()
         {
-            throw new NotImplementedException();
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(IntroductionHtml);
+
+            foreach (var itemGenerator in ItemGenerators)
+            {
+                stringBuilder.Append(itemGenerator.ToHtml());
+            }
+
+            stringBuilder.Append(SignOffHtml);
+
+            return stringBuilder.ToString();
         }
     }
 }
