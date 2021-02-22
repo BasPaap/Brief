@@ -12,18 +12,16 @@ namespace Bas.Brief
     {
         public static void Send(string briefFileName, string recipients)
         {
-            var configuration = new BriefConfiguration();
-            configuration.Load(briefFileName);
+            var brief = new Brief();
+            brief.Load(briefFileName);
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(configuration.SenderName, configuration.SenderEmailAddress));
+            message.From.Add(new MailboxAddress(brief.SenderName, brief.SenderEmailAddress));
             message.To.Add(MailboxAddress.Parse(recipients));
-            message.Subject = configuration.Subject;
-
+            message.Subject = brief.Subject;
             
-
             var bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = $"{configuration.IntroductionHtml}, {configuration.SignOffHtml}";
+            bodyBuilder.HtmlBody = brief.GetBodyHtml();
             message.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new SmtpClient())
