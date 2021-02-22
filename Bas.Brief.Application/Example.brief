@@ -4,7 +4,7 @@
   <Introduction><![CDATA[<p>Goeiemorgen!</p>]]></Introduction>
   <Items>
     <!--<GoogleCalendar />-->
-    <Bl3p />
+    <BitcoinPrice symbol="EUR" />
     <Nos url="http://feeds.nos.nl/nosnieuwsalgemeen" numItems="3"><![CDATA[Dit is er allemaal gebeurd:]]></Nos>
     <Reddit numItems="1" sub="upliftingnews" period="day"><![CDATA[Maar er is ook goed nieuws: ]]></Reddit>
   </Items>

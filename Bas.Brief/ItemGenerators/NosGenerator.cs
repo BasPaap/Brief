@@ -26,7 +26,11 @@ namespace Bas.Brief.ItemGenerators
             }
 
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append($"<p>{Content}<p>");
+
+            if (!string.IsNullOrWhiteSpace(Content))
+            {
+                stringBuilder.Append($"<p>{Content}<p>");
+            }
 
             const string paragraphOpenTag = "<p>";
             const string paragraphCloseTag = "</p>";
@@ -48,7 +52,7 @@ namespace Bas.Brief.ItemGenerators
 
         private async Task<Collection<RssItem>> GetRssItemsAsync()
         {
-            var httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
             var rssResponse = await httpClient.GetStringAsync(Parameters["url"]);
 
             if (string.IsNullOrWhiteSpace(rssResponse))
