@@ -10,7 +10,7 @@ namespace Bas.Brief
 {
     static class ItemGeneratorFactoy
     {
-        internal static ItemGenerator GetItemGenerator(XName name, IEnumerable<object> parameters, string content, bool isFirst, bool isLast)
+        internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, bool isFirst, bool isLast)
         {
             throw new NotImplementedException();
         }

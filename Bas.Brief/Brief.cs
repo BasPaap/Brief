@@ -32,11 +32,7 @@ namespace Bas.Brief
                         {
                             Name = item.Name,
                             Parameters = from attribute in item.Attributes()
-                                         select new
-                                         {
-                                             Name = attribute.Name,
-                                             Value = attribute.Value
-                                         },
+                                         select new KeyValuePair<string, string>(attribute.Name.ToString(), attribute.Value),                                         
                             Content = item.Value
                         };
 
@@ -47,7 +43,7 @@ namespace Bas.Brief
                 var isFirst = item == items.First();
                 var isLast = item == items.Last();
 
-                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name, item.Parameters, item.Content, isFirst, isLast);
+                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content, isFirst, isLast);
                 ItemGenerators.Add(itemGenerator);
             }
         }
