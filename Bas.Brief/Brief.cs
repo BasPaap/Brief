@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,26 @@ namespace Bas.Brief
         public string SenderEmailAddress { get; private set; }
         public Collection<ItemGenerator> ItemGenerators { get; private set; } = new Collection<ItemGenerator>();
 
+        private CultureInfo culture = CultureInfo.InvariantCulture;
+
+        private readonly Dictionary<string, string> replacements;
+
+        public Brief(string recipientName)
+        {            
+            replacements = new Dictionary<string, string>
+            {
+                { "%RECIPIENT%", recipientName },
+                { "%DATE%", DateTime.Now.ToString(culture) }
+            };
+        }
+
         public void Load(string fileName)
         {
             var configurationDocument = XDocument.Load(fileName);
+            this.culture = new CultureInfo((string)configurationDocument.Root.Attribute("culture"));
             SenderName = (string)configurationDocument.Root.Attribute("senderName");
             SenderEmailAddress = (string)configurationDocument.Root.Attribute("senderEmail");
-            Subject = (string)configurationDocument.Root.Element("Subject");
+            Subject = ReplaceAllWildcards((string)configurationDocument.Root.Element("Subject"));
             IntroductionHtml = (string)configurationDocument.Root.Element("Introduction");
             SignOffHtml = (string)configurationDocument.Root.Element("SignOff");
 
@@ -32,14 +47,14 @@ namespace Bas.Brief
                         {
                             item.Name,
                             Parameters = from attribute in item.Attributes()
-                                         select new KeyValuePair<string, string>(attribute.Name.ToString(), attribute.Value),                                         
+                                         select new KeyValuePair<string, string>(attribute.Name.ToString(), attribute.Value),
                             Content = item.Value
                         };
 
             ItemGenerators.Clear();
             foreach (var item in items)
             {
-                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content);
+                var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content, culture);
                 ItemGenerators.Add(itemGenerator);
             }
         }
@@ -57,7 +72,18 @@ namespace Bas.Brief
             }
 
             stringBuilder.Append(SignOffHtml);
-            return stringBuilder.ToString();
+            var html = stringBuilder.ToString();
+            return ReplaceAllWildcards(html);
+        }
+
+        private string ReplaceAllWildcards(string text)
+        {
+            string replacedText = text;
+            foreach (var replacement in replacements)
+            {
+                replacedText = replacedText.Replace(replacement.Key, replacement.Value);
+            }
+            return replacedText;
         }
     }
 }

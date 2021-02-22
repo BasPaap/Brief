@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -16,8 +17,8 @@ namespace Bas.Brief.ItemGenerators
             public string Url { get; init; }            
         }
 
-        public RedditGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content)
-            : base(parameters, content)
+        public RedditGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
+            : base(parameters, content, culture)
         {
         }
 

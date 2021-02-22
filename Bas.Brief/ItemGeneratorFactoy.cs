@@ -1,6 +1,7 @@
 ﻿using Bas.Brief.ItemGenerators;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Bas.Brief
 {
     static class ItemGeneratorFactoy
     {
-        internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content)
+        internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
         {
             Type generatorType = GetGeneratorType(name);
 
@@ -21,7 +22,7 @@ namespace Bas.Brief
             }
 
             // Instantiate the found type using the ItemGenerator constructor and return it.
-            var itemGenerator = Activator.CreateInstance(generatorType, parameters, content) as ItemGenerator;
+            var itemGenerator = Activator.CreateInstance(generatorType, parameters, content, culture) as ItemGenerator;
             return itemGenerator;
         }
 

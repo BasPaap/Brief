@@ -11,8 +11,8 @@ namespace Bas.Brief.ItemGenerators
 {
     public sealed class BitcoinPriceGenerator : ItemGenerator
     {
-        public BitcoinPriceGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content)
-            : base(parameters, content)
+        public BitcoinPriceGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
+            : base(parameters, content, culture)
         {
         }
 
@@ -32,7 +32,7 @@ namespace Bas.Brief.ItemGenerators
                 stringBuilder.Append($"<p>{Content}<p>");
             }
 
-            stringBuilder.Append($"<p>De bitcoin is vandaag <strong>&euro; {currentBitcoinPrice.Value.ToString(CultureInfo.CurrentUICulture)}</strong> waard.</p>");
+            stringBuilder.Append($"<p>De bitcoin is vandaag <strong>&euro; {currentBitcoinPrice.Value.ToString(Culture)}</strong> waard.</p>");
 
             return stringBuilder.ToString();
         }

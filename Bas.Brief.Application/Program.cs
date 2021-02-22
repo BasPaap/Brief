@@ -8,7 +8,7 @@ namespace Bas.Brief.Application
         static async Task Main(string[] args)
         {
             var arguments = new Arguments(args);
-            await BriefSender.SendAsync(arguments.BriefFileName, arguments.Recipients);
+            await BriefSender.SendAsync(arguments.BriefFileName, arguments.RecipientName, arguments.Recipients);
         }
     }
 }

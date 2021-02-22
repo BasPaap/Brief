@@ -10,9 +10,9 @@ namespace Bas.Brief
 {
     public static class BriefSender
     {
-        public static async Task SendAsync(string briefFileName, string recipients)
+        public static async Task SendAsync(string briefFileName, string recipientName, string recipients)
         {
-            var brief = new Brief();
+            var brief = new Brief(recipientName);
             brief.Load(briefFileName);
 
             var message = new MimeMessage();

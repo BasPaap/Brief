@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -11,8 +12,8 @@ namespace Bas.Brief.ItemGenerators
 {
     public sealed class NosGenerator : ItemGenerator
     {
-        public NosGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content)
-            : base(parameters, content)
+        public NosGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
+            : base(parameters, content, culture)
         {
         }
 

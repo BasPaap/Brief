@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Brief senderName="Brief Service" senderEmail="noreply@briefservice.com">
-  <Subject>Je dagelijkse nieuwsrief voor DATE</Subject>
-  <Introduction><![CDATA[<p>Goeiemorgen!</p>]]></Introduction>
+<Brief senderName="Brief Service" senderEmail="noreply@briefservice.com" culture="nl-NL">
+  <Subject>Je dagelijkse nieuwsrief voor %DATE%</Subject>
+  <Introduction><![CDATA[<p>Goeiemorgen %RECIPIENT%!</p>]]></Introduction>
   <Items>
     <!--<GoogleCalendar />-->
     <BitcoinPrice symbol="EUR" />
