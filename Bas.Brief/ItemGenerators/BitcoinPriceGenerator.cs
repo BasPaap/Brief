@@ -32,7 +32,7 @@ namespace Bas.Brief.ItemGenerators
                 stringBuilder.Append($"<p>{Content}<p>");
             }
 
-            stringBuilder.Append($"<p>De bitcoin is vandaag <strong>&euro; {currentBitcoinPrice.Value.ToString(Culture)}</strong> waard.</p>");
+            stringBuilder.Append($"<p>De bitcoin is vandaag <strong>{currentBitcoinPrice.Value.ToString("c", Culture)}</strong> waard.</p>");
 
             return stringBuilder.ToString();
         }
