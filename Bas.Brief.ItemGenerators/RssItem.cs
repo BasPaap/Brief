@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bas.Brief
+namespace Bas.Brief.ItemGenerators
 {
     record RssItem
     {

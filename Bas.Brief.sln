@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bas.Brief.Application", "Bas.Brief.Application\Bas.Brief.Application.csproj", "{55CC5133-0BD2-40B7-AA69-28C4034F4BCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bas.Brief", "Bas.Brief\Bas.Brief.csproj", "{EA6DB378-7A11-4339-978A-91F6B4BD5413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bas.Brief", "Bas.Brief\Bas.Brief.csproj", "{EA6DB378-7A11-4339-978A-91F6B4BD5413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bas.Brief.ItemGenerators", "Bas.Brief.ItemGenerators\Bas.Brief.ItemGenerators.csproj", "{D1F7B40A-3BB7-4BB0-9D16-B0D4F05F1EE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{EA6DB378-7A11-4339-978A-91F6B4BD5413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6DB378-7A11-4339-978A-91F6B4BD5413}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA6DB378-7A11-4339-978A-91F6B4BD5413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1F7B40A-3BB7-4BB0-9D16-B0D4F05F1EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1F7B40A-3BB7-4BB0-9D16-B0D4F05F1EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1F7B40A-3BB7-4BB0-9D16-B0D4F05F1EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1F7B40A-3BB7-4BB0-9D16-B0D4F05F1EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

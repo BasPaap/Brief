@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bas.Brief
+namespace Bas.Brief.ItemGenerators
 {
     [System.AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    sealed class ItemGeneratorAttribute : Attribute
+    public sealed class ItemGeneratorAttribute : Attribute
     {
         readonly string name;
 

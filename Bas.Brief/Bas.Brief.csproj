@@ -8,4 +8,8 @@
     <PackageReference Include="mailkit" Version="2.10.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bas.Brief.ItemGenerators\Bas.Brief.ItemGenerators.csproj" />
+  </ItemGroup>
+
 </Project>
