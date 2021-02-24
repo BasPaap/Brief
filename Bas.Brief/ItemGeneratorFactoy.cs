@@ -12,42 +12,50 @@ namespace Bas.Brief
 {
     static class ItemGeneratorFactoy
     {
+        private static Dictionary<string, Type> itemGeneratorTypes;
+
         internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
         {
-            Type generatorType = GetGeneratorType(name);
+            if (itemGeneratorTypes == null || itemGeneratorTypes.Count == 0)
+            {
+                itemGeneratorTypes = GetItemGeneratorTypes();
+            }
 
-            if (generatorType == null)
+            if (!itemGeneratorTypes.ContainsKey(name))  
             {
                 return null;
             }
 
             // Instantiate the found type using the ItemGenerator constructor and return it.
-            var itemGenerator = Activator.CreateInstance(generatorType, parameters, content, culture) as ItemGenerator;
+            var itemGenerator = Activator.CreateInstance(itemGeneratorTypes[name], parameters, content, culture) as ItemGenerator;
             return itemGenerator;
         }
 
-        private static Type GetGeneratorType(string name)
+        private static Dictionary<string, Type> GetItemGeneratorTypes()
         {
+            var itemGeneratorTypes = new Dictionary<string, Type>();
+
             var assemblies = new List<Assembly>
             {
                 typeof(ItemGenerator).Assembly // The assembly containing the built in item generators.
             };
             // TODO: load any other third party assemblies 
 
-            // Go through all assemblies and try to find a type with the right name. As soon as one it found, return it.
-            Type generatorType = null;
-            
-            foreach (var assembly in assemblies)
-            {
-                generatorType = assembly.GetTypes().FirstOrDefault(t => t.Name == $"{name}Generator");
+            var types = assemblies.AsParallel()
+                .SelectMany(a => a.GetExportedTypes())
+                .Where(type => type.GetCustomAttributes(typeof(ItemGeneratorAttribute)).Any()).ToList();
 
-                if (generatorType != null)
+            foreach (var itemGeneratorType in types)
+            {
+                var itemGeneratorAttribute = itemGeneratorType.GetCustomAttribute(typeof(ItemGeneratorAttribute)) as ItemGeneratorAttribute;
+
+                if (!itemGeneratorTypes.ContainsKey(itemGeneratorAttribute.Name))
                 {
-                    break;
+                    itemGeneratorTypes.Add(itemGeneratorAttribute.Name, itemGeneratorType);
                 }
             }
 
-            return generatorType;
-        }
+            return itemGeneratorTypes;
+        }        
     }
 }

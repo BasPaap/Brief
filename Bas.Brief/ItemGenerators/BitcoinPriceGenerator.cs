@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bas.Brief.ItemGenerators
 {
+    [ItemGenerator("BitcoinPrice")]
     public sealed class BitcoinPriceGenerator : ItemGenerator
     {
         public BitcoinPriceGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bas.Brief.ItemGenerators
 {
+    [ItemGenerator("Reddit")]
     public sealed class RedditGenerator : ItemGenerator
     {
         private record RedditItem

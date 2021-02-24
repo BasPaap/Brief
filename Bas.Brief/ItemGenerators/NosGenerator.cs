@@ -10,6 +10,7 @@ using System.Xml.Linq;
 
 namespace Bas.Brief.ItemGenerators
 {
+    [ItemGenerator("NOS")]
     public sealed class NosGenerator : ItemGenerator
     {
         public NosGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)

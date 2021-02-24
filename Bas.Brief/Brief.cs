@@ -52,11 +52,15 @@ namespace Bas.Brief
                         };
 
             ItemGenerators.Clear();
-
+            
             foreach (var item in items)
             {
                 var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content, culture);
-                ItemGenerators.Add(itemGenerator);
+                
+                if (itemGenerator != null)
+                {
+                    ItemGenerators.Add(itemGenerator);
+                }
             }
         }
 
