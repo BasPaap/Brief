@@ -25,8 +25,8 @@ namespace Bas.Brief
         {            
             replacements = new Dictionary<string, string>
             {
-                { "%RECIPIENT%", recipientName },
-                { "%DATE%", DateTime.Now.ToString(culture) }
+                { "{RECIPIENT}", recipientName },
+                { "{DATE}", DateTime.Now.ToString(culture) }
             };
         }
 
