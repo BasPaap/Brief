@@ -15,12 +15,9 @@ namespace Bas.Brief
         public string Subject { get; private set; }
         public string SenderName { get; private set; }
         public string SenderEmailAddress { get; private set; }
-        public Collection<ItemGenerator> ItemGenerators { get; private set; } = new Collection<ItemGenerator>();
-
         public string BodyHtml { get; private set; }
 
         private CultureInfo culture = CultureInfo.InvariantCulture;
-
         private readonly Dictionary<string, string> replacements;
 
         public Brief(string recipientName)
@@ -35,11 +32,16 @@ namespace Bas.Brief
         public async Task LoadAsync(string path)
         {
             var configurationDocument = XDocument.Load(path);
+                        
             this.culture = new CultureInfo((string)configurationDocument.Root.Attribute("culture"));
             SenderName = (string)configurationDocument.Root.Attribute("senderName");
             SenderEmailAddress = (string)configurationDocument.Root.Attribute("senderEmail");
             Subject = ReplaceAllWildcards((string)configurationDocument.Root.Element("Subject"));
-            
+            BodyHtml = await GetBodyHtmlAsync(configurationDocument);
+        }
+
+        private List<ItemGenerator> GetItemGenerators(XDocument configurationDocument)
+        {
             var items = from item in configurationDocument.Root.Element("Items").Elements()
                         select new
                         {
@@ -49,26 +51,26 @@ namespace Bas.Brief
                             Content = item.Value
                         };
 
-            ItemGenerators.Clear();
-            
+            List<ItemGenerator> itemGenerators = new List<ItemGenerator>();
+
             foreach (var item in items)
             {
                 var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content, culture);
-                
+
                 if (itemGenerator != null)
                 {
-                    ItemGenerators.Add(itemGenerator);
+                    itemGenerators.Add(itemGenerator);
                 }
             }
 
-            BodyHtml = await GetBodyHtmlAsync();
+            return itemGenerators;
         }
 
-        private async Task<string> GetBodyHtmlAsync()
+        private async Task<string> GetBodyHtmlAsync(XDocument configurationDocument)
         {
             var stringBuilder = new StringBuilder();
             
-            foreach (var itemGenerator in ItemGenerators)
+            foreach (var itemGenerator in GetItemGenerators(configurationDocument))
             {
                 stringBuilder.Append(await itemGenerator.ToHtmlAsync());
                 stringBuilder.Append(' ');  // Add a space after the item to make the text version of this brief more readable.

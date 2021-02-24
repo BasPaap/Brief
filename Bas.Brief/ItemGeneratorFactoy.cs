@@ -14,7 +14,7 @@ namespace Bas.Brief
     {
         private static Dictionary<string, Type> itemGeneratorTypes;
 
-        internal static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
+        public static ItemGenerator GetItemGenerator(string name, IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
         {
             if (itemGeneratorTypes == null || itemGeneratorTypes.Count == 0)
             {
