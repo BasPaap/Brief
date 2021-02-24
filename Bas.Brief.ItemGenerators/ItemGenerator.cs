@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,13 +12,18 @@ namespace Bas.Brief.ItemGenerators
     {
         public CultureInfo Culture { get; init; }
         public string Content { get; private init; }
-        public Dictionary<string, string> Parameters { get; private init; }
+        public ReadOnlyDictionary<string, string> Parameters { get; private init; }
         
         public abstract Task<string> ToHtmlAsync();
+
+        public virtual string GetUniqueIdentifier()
+        {
+            return string.Empty;
+        }
                 
         public ItemGenerator(IEnumerable<KeyValuePair<string, string>> parameters, string content, CultureInfo culture)
         {
-            Parameters = new Dictionary<string, string>(parameters);
+            Parameters = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>(parameters));
             Content = content;
             Culture = culture;
         }
