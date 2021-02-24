@@ -4,7 +4,7 @@
   <Items>
     <Content><![CDATA[<p>Goeiemorgen %RECIPIENT%!</p>]]></Content>
     <!--<GoogleCalendar />-->
-    <BitcoinPrice symbol="EUR" />
+    <BitcoinPrice symbol="EUR"><![CDATA[De bitcoin is vandaag <strong>{0}</strong> waard.]]></BitcoinPrice>
     <Content><![CDATA[<p>Dit is er allemaal gebeurd:</p>]]></Content>
     <NOS url="http://feeds.nos.nl/nosnieuwsalgemeen" numItems="3" />
     <Content><![CDATA[<p>Maar er is ook goed nieuws: ]]></Content>

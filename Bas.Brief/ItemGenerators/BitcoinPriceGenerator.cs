@@ -30,11 +30,9 @@ namespace Bas.Brief.ItemGenerators
             
             if (!string.IsNullOrWhiteSpace(Content))
             {
-                stringBuilder.Append($"<p>{Content}<p>");
+                stringBuilder.Append(string.Format(Content, currentBitcoinPrice.Value.ToString("c", Culture)));
             }
-
-            stringBuilder.Append($"<p>De bitcoin is vandaag <strong>{currentBitcoinPrice.Value.ToString("c", Culture)}</strong> waard.</p>");
-
+            
             return stringBuilder.ToString();
         }
 
