@@ -67,6 +67,7 @@ namespace Bas.Brief
             foreach (var itemGenerator in ItemGenerators)
             {
                 stringBuilder.Append(await itemGenerator.ToHtmlAsync());
+                stringBuilder.Append(" ");  // Add a space after the item to make the text version of this brief more readable.
             }
 
             var html = stringBuilder.ToString();

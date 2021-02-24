@@ -44,7 +44,7 @@ namespace Bas.Brief.ItemGenerators
 
                 stringBuilder.Append("<div>");
                 stringBuilder.Append($"<p style=\"float: left;\"><img src=\"{rssItem.Enclosure}\" height=\"72px\" width=\"128px\"></p>");
-                stringBuilder.Append($"<p><a href=\"{rssItem.Link}\"><strong>{rssItem.Title}</strong></a><br />");
+                stringBuilder.Append($"<p><a href=\"{rssItem.Link}\"><strong>{rssItem.Title}</strong></a><br /> "); // The title element needs to end with a space to keep it separated from the next line in text view.
                 stringBuilder.Append($"{itemText}</p>");
                 stringBuilder.Append("</div>");
             }

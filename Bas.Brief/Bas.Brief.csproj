@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.30" />
     <PackageReference Include="mailkit" Version="2.10.1" />
   </ItemGroup>
 

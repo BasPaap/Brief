@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using HtmlAgilityPack;
+using MailKit.Net.Smtp;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,16 @@ namespace Bas.Brief
             message.To.Add(MailboxAddress.Parse(recipients));
             message.Subject = brief.Subject;
 
+            var bodyHtml = await brief.GetBodyHtmlAsync();
+            var entitizedBodyHtml = HtmlEntity.Entitize(bodyHtml);
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(bodyHtml);            
+            var bodyText = htmlDocument.DocumentNode.InnerText;
+
             var bodyBuilder = new BodyBuilder
             {
-                HtmlBody = await brief.GetBodyHtmlAsync()
+                HtmlBody = entitizedBodyHtml,
+                TextBody = bodyText
             };
             message.Body = bodyBuilder.ToMessageBody();
 
