@@ -32,9 +32,9 @@ namespace Bas.Brief
             };
         }
 
-        public void Load(string fileName)
+        public void Load(string path)
         {
-            var configurationDocument = XDocument.Load(fileName);
+            var configurationDocument = XDocument.Load(path);
             this.culture = new CultureInfo((string)configurationDocument.Root.Attribute("culture"));
             SenderName = (string)configurationDocument.Root.Attribute("senderName");
             SenderEmailAddress = (string)configurationDocument.Root.Attribute("senderEmail");
@@ -52,6 +52,7 @@ namespace Bas.Brief
                         };
 
             ItemGenerators.Clear();
+
             foreach (var item in items)
             {
                 var itemGenerator = ItemGeneratorFactoy.GetItemGenerator(item.Name.ToString(), item.Parameters, item.Content, culture);

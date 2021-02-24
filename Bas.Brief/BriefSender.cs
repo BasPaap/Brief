@@ -10,10 +10,10 @@ namespace Bas.Brief
 {
     public static class BriefSender
     {
-        public static async Task SendAsync(string briefFileName, string recipientName, string recipients)
+        public static async Task SendAsync(string briefPath, string recipientName, string recipients)
         {
             var brief = new Brief(recipientName);
-            brief.Load(briefFileName);
+            brief.Load(briefPath);
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(brief.SenderName, brief.SenderEmailAddress));
