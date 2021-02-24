@@ -14,17 +14,16 @@ namespace Bas.Brief
         public static async Task SendAsync(string briefPath, string recipientName, string recipients)
         {
             var brief = new Brief(recipientName);
-            brief.Load(briefPath);
+            await brief.LoadAsync(briefPath);
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(brief.SenderName, brief.SenderEmailAddress));
             message.To.Add(MailboxAddress.Parse(recipients));
             message.Subject = brief.Subject;
 
-            var bodyHtml = await brief.GetBodyHtmlAsync();
-            var entitizedBodyHtml = HtmlEntity.Entitize(bodyHtml);
+            var entitizedBodyHtml = HtmlEntity.Entitize(brief.BodyHtml);
             var htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(bodyHtml);            
+            htmlDocument.LoadHtml(brief.BodyHtml);            
             var bodyText = htmlDocument.DocumentNode.InnerText;
 
             var bodyBuilder = new BodyBuilder

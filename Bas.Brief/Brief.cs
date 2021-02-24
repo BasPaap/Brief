@@ -17,6 +17,8 @@ namespace Bas.Brief
         public string SenderEmailAddress { get; private set; }
         public Collection<ItemGenerator> ItemGenerators { get; private set; } = new Collection<ItemGenerator>();
 
+        public string BodyHtml { get; private set; }
+
         private CultureInfo culture = CultureInfo.InvariantCulture;
 
         private readonly Dictionary<string, string> replacements;
@@ -30,7 +32,7 @@ namespace Bas.Brief
             };
         }
 
-        public void Load(string path)
+        public async Task LoadAsync(string path)
         {
             var configurationDocument = XDocument.Load(path);
             this.culture = new CultureInfo((string)configurationDocument.Root.Attribute("culture"));
@@ -58,16 +60,18 @@ namespace Bas.Brief
                     ItemGenerators.Add(itemGenerator);
                 }
             }
+
+            BodyHtml = await GetBodyHtmlAsync();
         }
 
-        public async Task<string> GetBodyHtmlAsync()
+        private async Task<string> GetBodyHtmlAsync()
         {
             var stringBuilder = new StringBuilder();
             
             foreach (var itemGenerator in ItemGenerators)
             {
                 stringBuilder.Append(await itemGenerator.ToHtmlAsync());
-                stringBuilder.Append(" ");  // Add a space after the item to make the text version of this brief more readable.
+                stringBuilder.Append(' ');  // Add a space after the item to make the text version of this brief more readable.
             }
 
             var html = stringBuilder.ToString();
