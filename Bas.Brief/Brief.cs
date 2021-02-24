@@ -21,7 +21,7 @@ namespace Bas.Brief
         private readonly Dictionary<string, string> replacements;
 
         public Brief(string recipientName)
-        {            
+        {
             replacements = new Dictionary<string, string>
             {
                 { "{RECIPIENT}", recipientName },
@@ -32,12 +32,26 @@ namespace Bas.Brief
         public async Task LoadAsync(string path)
         {
             var configurationDocument = XDocument.Load(path);
-                        
+
             this.culture = new CultureInfo((string)configurationDocument.Root.Attribute("culture"));
             SenderName = (string)configurationDocument.Root.Attribute("senderName");
             SenderEmailAddress = (string)configurationDocument.Root.Attribute("senderEmail");
             Subject = ReplaceAllWildcards((string)configurationDocument.Root.Element("Subject"));
             BodyHtml = await GetBodyHtmlAsync(configurationDocument);
+        }
+
+        private async Task<string> GetBodyHtmlAsync(XDocument configurationDocument)
+        {
+            var stringBuilder = new StringBuilder();
+
+            foreach (var itemGenerator in GetItemGenerators(configurationDocument))
+            {
+                stringBuilder.Append(await itemGenerator.ToHtmlAsync());
+                stringBuilder.Append(' ');  // Add a space after the item to make the text version of this brief more readable.
+            }
+
+            var html = stringBuilder.ToString();
+            return ReplaceAllWildcards(html);
         }
 
         private List<ItemGenerator> GetItemGenerators(XDocument configurationDocument)
@@ -64,20 +78,6 @@ namespace Bas.Brief
             }
 
             return itemGenerators;
-        }
-
-        private async Task<string> GetBodyHtmlAsync(XDocument configurationDocument)
-        {
-            var stringBuilder = new StringBuilder();
-            
-            foreach (var itemGenerator in GetItemGenerators(configurationDocument))
-            {
-                stringBuilder.Append(await itemGenerator.ToHtmlAsync());
-                stringBuilder.Append(' ');  // Add a space after the item to make the text version of this brief more readable.
-            }
-
-            var html = stringBuilder.ToString();
-            return ReplaceAllWildcards(html);
         }
 
         private string ReplaceAllWildcards(string text)
