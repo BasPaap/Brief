@@ -13,8 +13,6 @@ namespace Bas.Brief
     sealed class Brief
     {
         public string Subject { get; private set; }
-        public string IntroductionHtml { get; private set; }
-        public string SignOffHtml { get; private set; }
         public string SenderName { get; private set; }
         public string SenderEmailAddress { get; private set; }
         public Collection<ItemGenerator> ItemGenerators { get; private set; } = new Collection<ItemGenerator>();
@@ -39,9 +37,7 @@ namespace Bas.Brief
             SenderName = (string)configurationDocument.Root.Attribute("senderName");
             SenderEmailAddress = (string)configurationDocument.Root.Attribute("senderEmail");
             Subject = ReplaceAllWildcards((string)configurationDocument.Root.Element("Subject"));
-            IntroductionHtml = (string)configurationDocument.Root.Element("Introduction");
-            SignOffHtml = (string)configurationDocument.Root.Element("SignOff");
-
+            
             var items = from item in configurationDocument.Root.Element("Items").Elements()
                         select new
                         {
@@ -67,16 +63,12 @@ namespace Bas.Brief
         public async Task<string> GetBodyHtmlAsync()
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append(IntroductionHtml);
-
+            
             foreach (var itemGenerator in ItemGenerators)
             {
-                stringBuilder.Append("<p>");
                 stringBuilder.Append(await itemGenerator.ToHtmlAsync());
-                stringBuilder.Append("</p>");
             }
 
-            stringBuilder.Append(SignOffHtml);
             var html = stringBuilder.ToString();
             return ReplaceAllWildcards(html);
         }

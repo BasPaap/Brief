@@ -29,10 +29,10 @@ namespace Bas.Brief.ItemGenerators
 
             var stringBuilder = new StringBuilder();
 
-            if (!string.IsNullOrWhiteSpace(Content))
-            {
-                stringBuilder.Append($"<p>{Content}<p>");
-            }
+            //if (!string.IsNullOrWhiteSpace(Content))
+            //{
+            //    stringBuilder.Append($"<p>{Content}<p>");
+            //}
 
             const string paragraphOpenTag = "<p>";
             const string paragraphCloseTag = "</p>";

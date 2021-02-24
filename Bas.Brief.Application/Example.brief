@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Brief senderName="Brief Service" senderEmail="noreply@briefservice.com" culture="nl-NL">
   <Subject>Je dagelijkse nieuwsrief voor %DATE%</Subject>
-  <Introduction><![CDATA[<p>Goeiemorgen %RECIPIENT%!</p>]]></Introduction>
   <Items>
+    <Content><![CDATA[<p>Goeiemorgen %RECIPIENT%!</p>]]></Content>
     <!--<GoogleCalendar />-->
     <BitcoinPrice symbol="EUR" />
-    <NOS url="http://feeds.nos.nl/nosnieuwsalgemeen" numItems="3"><![CDATA[Dit is er allemaal gebeurd:]]></NOS>
-    <Reddit numItems="1" sub="upliftingnews" period="day"><![CDATA[Maar er is ook goed nieuws: ]]></Reddit>
+    <Content><![CDATA[<p>Dit is er allemaal gebeurd:</p>]]></Content>
+    <NOS url="http://feeds.nos.nl/nosnieuwsalgemeen" numItems="3" />
+    <Content><![CDATA[<p>Maar er is ook goed nieuws: ]]></Content>
+    <Reddit numItems="1" sub="upliftingnews" period="day" />
+    <Content><![CDATA[</p>]]></Content>
+    <Content><![CDATA[<p>Een fijne dag nog!</p>]]></Content>
   </Items>
-  <SignOff><![CDATA[<p>Een fijne dag nog!</p>]]></SignOff>
 </Brief>
