@@ -13,7 +13,7 @@ namespace Bas.Brief.ItemGenerators
         public CultureInfo Culture { get; init; }
         public string Content { get; private init; }
         public ReadOnlyDictionary<string, string> Parameters { get; private init; } // The Parameters come from the brief and cannot be changed by the ItemGenerator, hence it is a ReadOnlyDictionary.
-        
+        public Dictionary<string, string> PersistentItemData { get; set; }
         public abstract Task<string> ToHtmlAsync();
 
         public virtual string GetUniqueIdentifier()

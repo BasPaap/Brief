@@ -21,6 +21,8 @@ namespace Bas.Brief.ItemGenerators
         {
             var currentBitcoinPrice = await GetCurrentBitcoinPriceAsync();
 
+            PersistentItemData["price"] = "test";
+
             if (!currentBitcoinPrice.HasValue)
             {
                 return "Er ging iets mis bij het bepalen van de bitcoinprijs.";

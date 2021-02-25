@@ -23,6 +23,13 @@ namespace Bas.Brief.ItemGenerators
         {
         }
 
+        public override string GetUniqueIdentifier()
+        {
+            // We want every RedditGenerator in the brief that refers to the same subreddit to return the same results. 
+            // Therefore, the "sub" parameter can be used as a unique identifier.
+            return Parameters["sub"]; 
+        }
+
         public override async Task<string> ToHtmlAsync()
         {
             var redditItem = await GetRedditItemAsync();
