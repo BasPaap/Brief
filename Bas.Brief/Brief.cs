@@ -75,7 +75,7 @@ namespace Bas.Brief
                 Directory.CreateDirectory(Path.GetDirectoryName(persistedItemDataPath));
             }
 
-            var persistedItemDataJson = JsonSerializer.Serialize(persistedItemData);
+            var persistedItemDataJson = JsonSerializer.Serialize(persistedItemData, new JsonSerializerOptions() { WriteIndented = true });
             File.WriteAllText(persistedItemDataPath, persistedItemDataJson);
         }
 
