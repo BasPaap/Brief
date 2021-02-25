@@ -11,7 +11,7 @@
     <NOS url="http://feeds.nos.nl/nosnieuwsalgemeen" numItems="3" />
     <Content><![CDATA[<p>Maar er is ook goed nieuws: ]]></Content>
     <Reddit numItems="1" sub="upliftingnews" period="day" />
-    <Content><![CDATA[</p>]]></Content>
+    <Content><![CDATA[.</p>]]></Content>
     <Content><![CDATA[<p>Een fijne dag nog!</p>]]></Content>
   </Items>
 </Brief>
