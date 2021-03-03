@@ -13,9 +13,9 @@ namespace Bas.Brief.Application
             {
                 await BriefSender.SendAsync(arguments.BriefFileName, arguments.RecipientName, arguments.Recipients, arguments.SmtpAddress, arguments.SmtpPort);
             }
-            else if (arguments.SessionType == SessionType.Initialisation)
+            else if (arguments.SessionType == SessionType.Initialization)
             {
-                //auth
+                BriefInitializer.Initialize(arguments.UserName, arguments.Password);
             }
         }
     }

@@ -2,7 +2,7 @@
   "profiles": {
     "Bas.Brief.Application": {
       "commandName": "Project",
-      "commandLineArgs": "init gebrnm w@chtwoord!"
+      "commandLineArgs": "Example.brief Bas foo@bar.com smtp.foobar.nl 587"
     }
   }
 }

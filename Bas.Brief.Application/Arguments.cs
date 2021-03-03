@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +12,7 @@ namespace Bas.Brief.Application
     enum SessionType
     {
         Unknown = 0,
-        Initialisation,
+        Initialization,
         Send
     }
 
@@ -21,22 +23,23 @@ namespace Bas.Brief.Application
         public string Recipients { get; init; }
         public string SmtpAddress { get; init; }
         public int SmtpPort { get; init; }
-
+        public string UserName { get; init; }
+        public string Password { get; init; }
         public SessionType SessionType { get; init; }
 
         public Arguments(string[] commandLineArguments)
         {
-            const int numExpectedInitialisationArguments = 3;
+            const int numExpectedInitializationArguments = 3;
             const int numExpectedSendArguments = 5;
             const int briefFileNameIndex = 0;
             const int recipientNameIndex = 1;
             const int recipientsIndex = 2;
             const int smtpAddressIndex = 3;
             const int smtpPortIndex = 4;
-            const int initialisationCommandIndex = 0;
+            const int initializationCommandIndex = 0;
             const int userNameIndex = 1;
             const int passwordIndex = 2;
-            const string initialisationCommand = "init";
+            const string initializationCommand = "init";
             
             if (commandLineArguments.Length == numExpectedSendArguments)
             {
@@ -47,14 +50,12 @@ namespace Bas.Brief.Application
                 SmtpAddress = commandLineArguments[smtpAddressIndex];
                 SmtpPort = int.Parse(commandLineArguments[smtpPortIndex], CultureInfo.InvariantCulture);
             }
-            else if (commandLineArguments.Length == numExpectedInitialisationArguments && 
-                     string.Compare(commandLineArguments[initialisationCommandIndex], initialisationCommand, true) == 0)
+            else if (commandLineArguments.Length == numExpectedInitializationArguments && 
+                     string.Compare(commandLineArguments[initializationCommandIndex], initializationCommand, true) == 0)
             {
-                SessionType = SessionType.Initialisation;
-                var userName = commandLineArguments[userNameIndex];
-                var password = commandLineArguments[passwordIndex];
-                
-
+                SessionType = SessionType.Initialization;
+                UserName = commandLineArguments[userNameIndex];
+                Password = commandLineArguments[passwordIndex];
             }
             else
             {

@@ -3,8 +3,10 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Bas.Brief
@@ -33,11 +35,21 @@ namespace Bas.Brief
             };
             message.Body = bodyBuilder.ToMessageBody();
 
+            var credentials = GetCredentials();
+
             using var client = new SmtpClient();
             await client.ConnectAsync(smtpAddress, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
-            await client.AuthenticateAsync("username", "password");
+            await client.AuthenticateAsync(credentials.UserName, credentials.GetDecryptedPassword());
             await client.SendAsync(message);
             await client.DisconnectAsync(true);            
+        }        
+
+        private static Credentials GetCredentials()
+        {
+            var credentialsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create), Brief.ApplicationDataFolderName, Brief.CredentialsFileName); ;
+            var jsonCredentials = File.ReadAllText(credentialsPath);
+            var credentials = JsonSerializer.Deserialize<Credentials>(jsonCredentials);
+            return credentials;
         }
     }
 }

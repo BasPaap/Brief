@@ -14,6 +14,8 @@ namespace Bas.Brief
 {
     sealed class Brief
     {
+        public const string ApplicationDataFolderName = "Bas.Brief";
+        public const string CredentialsFileName = ".credentials";
         public string Subject { get; private set; }
         public string SenderName { get; private set; }
         public string SenderEmailAddress { get; private set; }
@@ -93,7 +95,7 @@ namespace Bas.Brief
             return ReplaceAllWildcards(html);
         }
 
-        private static string GetPersistedItemDataPath(string briefFileName) => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create), "Bas.Brief", $"{briefFileName}.data");
+        private static string GetPersistedItemDataPath(string briefFileName) => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create), ApplicationDataFolderName, $"{briefFileName}.data");
 
         private List<ItemGenerator> GetItemGenerators(XDocument configurationDocument)
         {
@@ -106,7 +108,7 @@ namespace Bas.Brief
                             Content = item.Value
                         };
 
-            List<ItemGenerator> itemGenerators = new List<ItemGenerator>();
+            var itemGenerators = new List<ItemGenerator>();
 
             foreach (var item in items)
             {
