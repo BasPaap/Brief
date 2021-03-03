@@ -11,7 +11,7 @@ namespace Bas.Brief
 {
     public static class BriefSender
     {
-        public static async Task SendAsync(string briefPath, string recipientName, string recipients)
+        public static async Task SendAsync(string briefPath, string recipientName, string recipients, string smtpAddress, int smtpPort)
         {
             var brief = new Brief(recipientName);
             await brief.LoadAsync(briefPath);
@@ -34,7 +34,8 @@ namespace Bas.Brief
             message.Body = bodyBuilder.ToMessageBody();
 
             using var client = new SmtpClient();
-            await client.ConnectAsync("smtp.foo.com", 587, false);
+            await client.ConnectAsync(smtpAddress, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+            await client.AuthenticateAsync("username", "password");
             await client.SendAsync(message);
             await client.DisconnectAsync(true);            
         }
