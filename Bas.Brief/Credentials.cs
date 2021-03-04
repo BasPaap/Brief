@@ -78,14 +78,19 @@ namespace Bas.Brief
         }
 
         public string GetDecryptedPassword()
-        {   
+        {
+            var decryptedPasswordBytes = GetDecryptedPasswordBytes();
+            char[] characters = new char[decryptedPasswordBytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(decryptedPasswordBytes, 0, characters, 0, decryptedPasswordBytes.Length);
+            return new string(characters);
+        }
+
+        private byte[] GetDecryptedPasswordBytes()
+        {            
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // Decrypt the password using the DPAPI, which is tied to the user account. Use the semi-unique ID as extra entropy.
-                var decryptedPasswordBytes = ProtectedData.Unprotect(EncryptedPasswordBytes, semiUniqueId, DataProtectionScope.CurrentUser);
-                char[] characters = new char[decryptedPasswordBytes.Length / sizeof(char)];
-                System.Buffer.BlockCopy(decryptedPasswordBytes, 0, characters, 0, decryptedPasswordBytes.Length);
-                return new string(characters);
+                return ProtectedData.Unprotect(EncryptedPasswordBytes, semiUniqueId, DataProtectionScope.CurrentUser);
             }
             else
             {
@@ -101,11 +106,7 @@ namespace Bas.Brief
                     {
                         using (var binaryReader = new BinaryReader(cryptoStream))
                         {
-                            var decryptedPasswordBytes = binaryReader.ReadBytes(EncryptedPasswordBytes.Length);
-
-                            char[] characters = new char[decryptedPasswordBytes.Length / sizeof(char)];
-                            System.Buffer.BlockCopy(decryptedPasswordBytes, 0, characters, 0, decryptedPasswordBytes.Length);
-                            return new string(characters);
+                            return binaryReader.ReadBytes(EncryptedPasswordBytes.Length);
                         }
                     }
                 }
