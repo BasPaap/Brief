@@ -36,7 +36,7 @@ namespace Bas.Brief
             message.Body = bodyBuilder.ToMessageBody();
 
             var credentials = GetCredentials();
-                        
+                                    
             using var client = new SmtpClient();
             await client.ConnectAsync(smtpAddress, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
             await client.AuthenticateAsync(credentials.UserName, credentials.GetDecryptedPassword());
