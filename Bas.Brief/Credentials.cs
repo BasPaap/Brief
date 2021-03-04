@@ -32,9 +32,12 @@ namespace Bas.Brief
             stringBuilder.Append(executableDrive.Name);
             stringBuilder.Append(executableDrive.RootDirectory);
             stringBuilder.Append(executableDrive.TotalSize);
+                        
+            var unhashedSemiUniqueId = new byte[stringBuilder.Length * sizeof(char)];
+            System.Buffer.BlockCopy(stringBuilder.ToString().ToCharArray(), 0, unhashedSemiUniqueId, 0, unhashedSemiUniqueId.Length);
 
-            semiUniqueId = new byte[stringBuilder.Length * sizeof(char)];
-            System.Buffer.BlockCopy(stringBuilder.ToString().ToCharArray(), 0, semiUniqueId, 0, semiUniqueId.Length);
+            var sha256Hash = SHA256.Create();
+            semiUniqueId = sha256Hash.ComputeHash(unhashedSemiUniqueId);
         }
 
         public Credentials(string userName, string password) 
@@ -45,22 +48,19 @@ namespace Bas.Brief
             var passwordBytes = new byte[password.Length * sizeof(char)];
             System.Buffer.BlockCopy(password.ToCharArray(), 0, passwordBytes, 0, passwordBytes.Length);
 
-            
+        
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 EncryptedPasswordBytes = ProtectedData.Protect(passwordBytes, semiUniqueId, DataProtectionScope.CurrentUser);
             }
             else
             {
-                using Aes aes = Aes.Create();
-                
             }
         }
 
         public string GetDecryptedPassword()
-        {
-            using Aes aes = Aes.Create();
-
+        {   
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 var decryptedPasswordBytes = ProtectedData.Unprotect(EncryptedPasswordBytes, semiUniqueId, DataProtectionScope.CurrentUser);
@@ -71,6 +71,10 @@ namespace Bas.Brief
             else
             {
                 throw new NotImplementedException();
+
+                using Aes aes = Aes.Create();
+                aes.Key = semiUniqueId;
+
             }
         }
     }
