@@ -17,6 +17,11 @@ namespace Bas.Brief.Application
             {
                 BriefInitializer.Initialize(arguments.UserName, arguments.Password);
             }
+            else
+            {
+                Console.WriteLine("Usage: Brief fileName recipientName recipients smtpAddress smtpPort");
+            }
+
         }
     }
 }
